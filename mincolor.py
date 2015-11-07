@@ -1,6 +1,8 @@
 #!/bin/env python
 
 import numpy as np
+import networkx as nx
+import matplotlib.pyplot as plt
 
 data = np.array([[ 0,0,0,0,0,1,1,1,1,1,2,2,2,2,2,1,1,1,1,1 ],
                  [ 0,0,0,0,0,0,1,1,1,1,1,2,2,2,1,1,1,1,0,0 ],
@@ -53,3 +55,14 @@ def sort_pairs(pairs):
 def remove_dups(pairs):
     return list(set(pairs))
 
+##########
+
+def plot_graph(connections):
+    G = nx.from_edgelist(connections)
+    pos = nx.spring_layout(G)
+    nx.draw_networkx_nodes(G,pos,node_size=700, node_color='#A0CBE2')
+    # edges
+    nx.draw_networkx_edges(G,pos, width=6)
+    # labels
+    nx.draw_networkx_labels(G,pos,font_size=20,font_family='sans-serif')
+    plt.show()
