@@ -57,15 +57,47 @@ def remove_dups(pairs):
 
 ##########
 
-def plot_graph(connections):
+def plot_graph(connections, clist):
     G = nx.from_edgelist(connections)
     pos = nx.spring_layout(G)
-    nx.draw_networkx_nodes(G,pos,node_size=700, node_color='#A0CBE2')
+    nx.draw_networkx_nodes(G,pos,node_size=700, node_color=clist)
     # edges
     nx.draw_networkx_edges(G,pos, width=6)
     # labels
     nx.draw_networkx_labels(G,pos,font_size=20,font_family='sans-serif')
     plt.show()
+
+###########
+## greedy coloring
+###########
+
+colors = ['Red', 'Blue', 'Green', 'Yellow',  'Black', 'Pink', 'Orange', 'White', 'Gray', 'Purple', 'Brown', 'Navy']
+colors_of_nodes = {}
+
+def coloring(graph, node, color):
+    for neighbor in graph.neighbors(node):
+        color_of_neighbor = colors_of_nodes.get(neighbor, None)
+        if color_of_neighbor == color:
+            return False
+    return True
+
+def get_color_for_node(graph, node):
+    for color in colors:
+        if coloring(graph, node, color):
+            return color
+
+def greedycolors(graph):
+    for node in graph.nodes():
+        colors_of_nodes[node] = get_color_for_node(graph, node)
+    return colors_of_nodes
+
+def make_colorlist(colordict):
+    colorlist = list()
+    for key, value in colordict.items():
+        colorlist.append(value)
+    return colorlist
+
+#############
 
 if __name__ == '__main__':
 
@@ -79,6 +111,12 @@ if __name__ == '__main__':
     print("connections:")
     print(conns)
 
+    print("generate graph")
+    G = nx.from_edgelist(conns)
+
+    colors = greedycolors(G)
+    print(colors)
+    clist = make_colorlist(colors)
+
     # graph
-    plot_graph(conns)
-    
+    plot_graph(conns, clist)
