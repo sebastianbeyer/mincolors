@@ -66,3 +66,19 @@ def plot_graph(connections):
     # labels
     nx.draw_networkx_labels(G,pos,font_size=20,font_family='sans-serif')
     plt.show()
+
+if __name__ == '__main__':
+
+    
+    all_pairs = get_all_pairs(data)
+    sorted_pairs = sort_pairs(all_pairs)
+    nodups = remove_dups(sorted_pairs)
+
+    conns = nodups
+
+    print("connections:")
+    print(conns)
+
+    # graph
+    plot_graph(conns)
+    
