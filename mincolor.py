@@ -4,7 +4,7 @@ import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
 
-data = np.array([[ 0,0,0,0,0,1,1,1,1,1,2,2,2,2,2,1,1,1,1,1 ],
+exampledata = np.array([[ 0,0,0,0,0,1,1,1,1,1,2,2,2,2,2,1,1,1,1,1 ],
                  [ 0,0,0,0,0,0,1,1,1,1,1,2,2,2,1,1,1,1,0,0 ],
                  [ 0,0,0,0,0,0,0,1,1,1,2,2,2,2,2,1,1,1,0,0 ],
                  [ 0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0 ],
@@ -101,7 +101,7 @@ def make_colorlist(colordict):
 
 if __name__ == '__main__':
     
-    all_pairs = get_all_pairs(data)
+    all_pairs = get_all_pairs(exampledata)
     sorted_pairs = sort_pairs(all_pairs)
     nodups = remove_dups(sorted_pairs)
     conns = nodups
