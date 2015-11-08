@@ -32,8 +32,8 @@ def neighbor_pairs(data, i, j):
     for n in stencil4:
         ni = i+n[0]
         nj = j+n[1]
-        if (ni < 0 or ni > data.shape[0]): continue
-        if (nj < 0 or nj > data.shape[1]): continue
+        if (ni < 0 or ni > data.shape[0]-1): continue
+        if (nj < 0 or nj > data.shape[1]-1): continue
         if (data[i, j] != data[ni, nj]):
             pair.append((data[i, j], data[ni, nj]))
     return pair
