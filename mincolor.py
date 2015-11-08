@@ -59,7 +59,8 @@ def remove_dups(pairs):
 
 def plot_graph(connections, clist):
     G = nx.from_edgelist(connections)
-    pos = nx.spring_layout(G)
+    pos = nx.circular_layout(G)
+    # pos = nx.spring_layout(G)
     nx.draw_networkx_nodes(G,pos,node_size=700, node_color=clist)
     # edges
     nx.draw_networkx_edges(G,pos, width=6)
