@@ -10,7 +10,7 @@ data = np.array([[ 0,0,0,0,0,1,1,1,1,1,2,2,2,2,2,1,1,1,1,1 ],
                  [ 0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0 ],
                  [ 0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0 ],
                  [ 0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0 ],
-                 [ 0,0,0,0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0,0 ],
+                 [ 0,0,0,6,6,0,0,0,0,3,3,3,3,0,0,0,0,0,0,0 ],
                  [ 0,0,0,0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0,0 ]])
 
 # stencil for all 8 neighbors of a cell
@@ -71,24 +71,24 @@ def plot_graph(connections, clist):
 ## greedy coloring
 ###########
 
-colors = ['Red', 'Blue', 'Green', 'Yellow',  'Black', 'Pink', 'Orange', 'White', 'Gray', 'Purple', 'Brown', 'Navy']
-colors_of_nodes = {}
-
-def coloring(graph, node, color):
-    for neighbor in graph.neighbors(node):
-        color_of_neighbor = colors_of_nodes.get(neighbor, None)
-        if color_of_neighbor == color:
-            return False
-    return True
-
-def get_color_for_node(graph, node):
-    for color in colors:
-        if coloring(graph, node, color):
-            return color
 
 def greedycolors(graph):
+    colors = ['Red', 'Blue', 'Green', 'Yellow',  'Black', 'Pink', 'Orange', 'White', 'Gray', 'Purple', 'Brown', 'Navy']
+    colors_of_nodes = {}
+    def coloring(node, color):
+        for neighbor in graph.neighbors(node):
+            color_of_neighbor = colors_of_nodes.get(neighbor, None)
+            if color_of_neighbor == color:
+                return False
+            return True
+        
+    def get_color_for_node(node):
+        for color in colors:
+            if coloring(node, color):
+                return color
+    
     for node in graph.nodes():
-        colors_of_nodes[node] = get_color_for_node(graph, node)
+        colors_of_nodes[node] = get_color_for_node(node)
     return colors_of_nodes
 
 def make_colorlist(colordict):
@@ -100,12 +100,10 @@ def make_colorlist(colordict):
 #############
 
 if __name__ == '__main__':
-
     
     all_pairs = get_all_pairs(data)
     sorted_pairs = sort_pairs(all_pairs)
     nodups = remove_dups(sorted_pairs)
-
     conns = nodups
 
     print("connections:")
@@ -114,9 +112,9 @@ if __name__ == '__main__':
     print("generate graph")
     G = nx.from_edgelist(conns)
 
-    colors = greedycolors(G)
-    print(colors)
-    clist = make_colorlist(colors)
+    gcolors = greedycolors(G)
+    print(gcolors)
+    clist = make_colorlist(gcolors)
 
     # graph
     plot_graph(conns, clist)
