@@ -81,7 +81,7 @@ def greedycolors(graph):
             color_of_neighbor = colors_of_nodes.get(neighbor, None)
             if color_of_neighbor == color:
                 return False
-            return True
+        return True
         
     def get_color_for_node(node):
         for color in colors:
