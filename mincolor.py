@@ -117,8 +117,11 @@ if __name__ == '__main__':
     data = rootgrp.variables[varname][:]
     data = data.astype(int)
 
+    print("getting all pairs from data")
     all_pairs = get_all_pairs(data)
+    print("sorting pairs")
     sorted_pairs = sort_pairs(all_pairs)
+    print("removing duplicates")
     nodups = remove_dups(sorted_pairs)
     conns = nodups
 
