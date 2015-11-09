@@ -107,9 +107,21 @@ def plot_map(data, clist):
     cmap = colors.ListedColormap(clist)
     plt.imshow(data, interpolation='nearest', cmap=cmap)
     plt.show()
-    
 
-if __name__ == '__main__':
+def print_cpt(gcolors):
+    def makecpt_footer():
+        """ Print the footer """
+        print('B\t127.5')
+        print('F\t127.5')
+        print('N\t127.5')
+    def makecpt_body(gcolors):
+        for key, color in gcolors.items():
+            print('{0}\t{1}\t{2}\t{3}'.format(key, color, key+1, color))
+
+    makecpt_body(gcolors)
+    makecpt_footer()
+    
+if __name__ == '__blamain__':
 
     parser = argparse.ArgumentParser(description='Generate colors')
     parser.add_argument('ncfile', type=str,
