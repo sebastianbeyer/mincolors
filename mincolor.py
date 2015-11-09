@@ -4,6 +4,7 @@ import argparse
 import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
+from matplotlib import colors
 from netCDF4 import Dataset
 
 exampledata = np.array([[ 0,0,0,0,0,1,1,1,1,1,2,2,2,2,2,1,1,1,1,1 ],
@@ -102,6 +103,12 @@ def make_colorlist(colordict):
 
 #############
 
+def plot_map(data, clist):
+    cmap = colors.ListedColormap(clist)
+    plt.imshow(data, interpolation='nearest', cmap=cmap)
+    plt.show()
+    
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Generate colors')
@@ -134,6 +141,8 @@ if __name__ == '__main__':
     gcolors = greedycolors(G)
     print(gcolors)
     clist = make_colorlist(gcolors)
+
+    plot_map(data, clist)
 
     # graph
     plot_graph(conns, clist)
