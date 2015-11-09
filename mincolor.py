@@ -124,7 +124,7 @@ if __name__ == '__main__':
     data = rootgrp.variables[varname][:]
     data = data.astype(int)
 
-    print("getting all pairs from data")
+    print("getting all pairs from data (this may take some while)")
     all_pairs = get_all_pairs(data)
     print("sorting pairs")
     sorted_pairs = sort_pairs(all_pairs)
