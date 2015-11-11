@@ -126,7 +126,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate colors')
     parser.add_argument('ncfile', type=str,
                         help='NetCDF file to use')
-    parser.add_argument('--varname', default='z')
+    parser.add_argument('--varname', default='z', type=str,
+                        help='variable name of the regions in NetCDF')
     args = parser.parse_args()
 
     rootgrp = Dataset(args.ncfile, "r", format="NETCDF4")
