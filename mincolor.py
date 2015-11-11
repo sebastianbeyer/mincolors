@@ -53,7 +53,7 @@ def sort_pairs(pairs):
     for pair in pairs:
         sorted_pair = tuple(sorted(pair))
         sorted_pairs.append(sorted_pair)
-    return sorted_pairs 
+    return sorted_pairs
 
 def remove_dups(pairs):
     return list(set(pairs))
@@ -85,12 +85,12 @@ def greedycolors(graph):
             if color_of_neighbor == color:
                 return False
         return True
-        
+
     def get_color_for_node(node):
         for color in colors:
             if coloring(node, color):
                 return color
-    
+
     for node in graph.nodes():
         colors_of_nodes[node] = get_color_for_node(node)
     return colors_of_nodes
@@ -120,20 +120,18 @@ def print_cpt(gcolors):
 
     makecpt_body(gcolors)
     makecpt_footer()
-    
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Generate colors')
     parser.add_argument('ncfile', type=str,
                         help='NetCDF file to use')
+    parser.add_argument('--varname', default='z')
     args = parser.parse_args()
 
-    print(args.ncfile)
     rootgrp = Dataset(args.ncfile, "r", format="NETCDF4")
 
-    varname = 'basins'
-
-    data = rootgrp.variables[varname][:]
+    data = rootgrp.variables[args.varname][:]
     data = data.astype(int)
 
     print("getting all pairs from data (this may take some while)")
