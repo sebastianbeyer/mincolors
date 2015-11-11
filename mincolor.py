@@ -32,7 +32,7 @@ stencil4 = stencil8[0:4]
 
 def neighbor_pairs(data, i, j):
     pair = list()
-    for n in stencil4:
+    for n in stencil8:
         ni = i+n[0]
         nj = j+n[1]
         if (ni < 0 or ni > data.shape[0]-1): continue
@@ -121,7 +121,7 @@ def print_cpt(gcolors):
     makecpt_body(gcolors)
     makecpt_footer()
     
-if __name__ == '__blamain__':
+if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Generate colors')
     parser.add_argument('ncfile', type=str,
@@ -131,7 +131,7 @@ if __name__ == '__blamain__':
     print(args.ncfile)
     rootgrp = Dataset(args.ncfile, "r", format="NETCDF4")
 
-    varname = 'z'
+    varname = 'basins'
 
     data = rootgrp.variables[varname][:]
     data = data.astype(int)
