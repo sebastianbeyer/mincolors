@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import argparse
 import numpy as np
@@ -76,7 +76,7 @@ def plot_graph(connections, clist, filename=None, show_fig=False):
         plt.show()
     if filename:
         fig.savefig(filename, bbox_inches='tight')
-        
+
 
 ###########
 ## greedy coloring
@@ -89,17 +89,17 @@ def greedycolors(graph):
     # colors = ['Red', 'Blue', 'Green', 'Yellow',  'Black', 'Pink', 'Orange', 'White', 'Gray', 'Purple', 'Brown', 'Navy']
 
     ## gray and blue
-    # colors = ['grey','#6A92D4','#1049A9','#052C6E'] 
+    # colors = ['grey','#6A92D4','#1049A9','#052C6E']
 
     #YlGnBu05
     # colors = ['#ffffcc', '#a1dab4', '#41b6c4', '#2c7fb8', '#253494']
-    
+
     ## http://soliton.vm.bytemark.co.uk/pub/cpt-city/cb/seq/tn/GnBu_09.png.index.html
     # colors = ['#f7fcf0', '#e0f3db', '#ccebc5', '#a8ddb5', '#7bccc4', '#4eb3d3', '#2b8cbe', '#0868ac', '#084081']
 
     ## first blue than green
     colors = ['#4eb3d3', '#2b8cbe', '#0868ac', '#084081', '#7bccc4', '#f7fcf0', '#e0f3db', '#ccebc5', '#a8ddb5']
-    
+
     colors_of_nodes = {}
     def coloring(node, color):
         for neighbor in graph.neighbors(node):
@@ -150,7 +150,7 @@ def print_cpt(gcolors):
 
 def export_cpt(gcolors, filename):
     ## We are luky. GMT4 already understands named colors. Thus we don't need to convert names to RGB values.
-    f = open(filename,"w") 
+    f = open(filename,"w")
     ## cpt header
     f.write("#	cpt file created by: mincolor.py\n")
     f.write("#COLOR_MODEL = RGB\n")
@@ -163,14 +163,14 @@ def export_cpt(gcolors, filename):
     for key, color in gcolors.items():
         r,g,b = cc(color)
         f.write("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n" % (key, r*255, g*255, b*255, key+1, r*255, g*255, b*255))
-    
+
     ## cpt footer
     f.write("B\t0\t0\t0\n")       ## GMT defaults
     f.write("F\t255\t255\t255\n") ## GMT defaults
     f.write("N\t128\t128\t128\n") ## GMT defaults
-    f.close() 
+    f.close()
 
-    
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Generate colors')
@@ -182,11 +182,11 @@ if __name__ == '__main__':
 
     parser.add_argument('-n','--name', dest='name', default=None, type=str,
                     help='basename for all output files')
-    
-    parser.add_argument('-s', '--show_fig', dest='show_fig', action="store_true", 
+
+    parser.add_argument('-s', '--show_fig', dest='show_fig', action="store_true",
                         help='show figures on the screen (default: no)')
-    
-    parser.add_argument('-e', '--export_cpt', dest='export_cpt', action="store_true", 
+
+    parser.add_argument('-e', '--export_cpt', dest='export_cpt', action="store_true",
                         help='export color table as GMT cpt file')
 
     args = parser.parse_args()
@@ -201,7 +201,7 @@ if __name__ == '__main__':
     else:
         name, ext = path.splitext(path.basename(args.ncfile))
 
-    
+
     print("getting all pairs from data (this may take some while)")
     all_pairs = get_all_pairs(data)
     print("sorting pairs")
@@ -237,4 +237,4 @@ if __name__ == '__main__':
         export_cpt(gcolors, fname)
         print("%s saved" % fname)
 
-    
+
